@@ -159,7 +159,42 @@ Compared to standard single-agent PPO training:
 ```
 ## 7. Results
 
-TODO 
+This repository evaluates PPO and a custom, evolutionary variant of PPO on the FetchReachDense task with a dexterous robotic hand. Performance is measured using training success rate, average minimum distance to the goal, and (where applicable) PPO loss, plotted as a function of environment interaction steps.
+
+PPO:
+  - shows fast and stable convergence
+  - reaches a success rate of 1.0 after about 100,000 environment steps
+  - loss decreases and converges towards 0 or stabilizes close to it
+  - results are consistent across both success thresholds (0.05 and 0.02)
+
+EPPO (Evolutionary PPO)
+
+  - shows stable convergence
+  - reaches a success rate of 1.0 after about 500,000 - 1,000,000 environment steps
+  - loss decreases towards 0 with minor flactuations
+  - results are consistent across both success thresholds (0.05 and 0.02)
+
+Random Baseline
+
+  - shows no sign of convergence
+  - shows flactuations in both distance to goal and success rate
+
+Comparison and Takeaways
+
+PPO: Fast, smooth learning. Strong performance with fewer design choices.
+
+EPPO: Comparable final performance, but with different learning dynamics driven by population-based evolution. The averaged training curves reflect population-level learning rather than a single trajectory.
+Despite these differences, EPPO converges reliably, demonstrating that combining evolutionary selection with PPO updates is a viable alternative to standard policy gradient training.
+
+The bad performance of the random policy with low success rates and consistently high distances to the goal highlights that the task is not trivial and requires structured learning.
+All plots referenced above are included in the results/plots/ directory.
+Additional experiments with a tighter success threshold (0.02) show qualitatively similar behavior for both PPO and EPPO and are available in the corresponding results folders.
+
+Disclaimer: These findings are not scientifically sound or complete. They simply serve the purpose of 
+  1) examining how PPO performs on the FetchReachDense Robotics environment
+  2) introducing an evolutionary variant of PPO and examining its performance of the FetchReachDense Robotics environment
+  3) showing that both algorithms can be trained without the necessity of computational power beyond a CPU
+  4) showing that success is non-trivial 
 
 
 
